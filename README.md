@@ -12,15 +12,16 @@ In order for the script to run you'll need to create the following unversioned f
 - config.py
 - credentials.json
 
-Creating the config file:
+**Creating the config file**:
 1. Create a new file named 'config.py' in the root directory.
 1. Open the file and add the following details:
-    ACCESSKEY = "AWS ACCESS KEY"
-    SECRETKEY = "AWS SECRET KEY"
-    
-    BUCKET_NAME = "THE BUCKET NAME"
-    ROOT_FOLDER = "THE ROOT FOLDER NAME"
 
-Generating credentials.json:
+> ACCESSKEY = "AWS ACCESS KEY"
+SECRETKEY = "AWS SECRET KEY"
+
+> BUCKET_NAME = "THE BUCKET NAME"
+ROOT_FOLDER = "THE ROOT FOLDER NAME"
+
+**Generating credentials.json**:
 Follow the first part of this tutorial to create credentials file:
 https://www.casuallycoding.com/download-docs-from-google-drive-api/
