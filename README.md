@@ -37,6 +37,6 @@ SECRETKEY = *"AWS SECRET KEY"*
 BUCKET_NAME = *"THE BUCKET NAME"*  
 ROOT_FOLDER = *"THE ROOT FOLDER NAME"*  
 
-**Generating credentials.json**:
+**Generating credentials.json**:  
 Follow the first part of this tutorial to create credentials file:
 https://www.casuallycoding.com/download-docs-from-google-drive-api/
