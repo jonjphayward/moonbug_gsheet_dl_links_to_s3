@@ -20,6 +20,10 @@ SECRETKEY = *"AWS SECRET KEY"*
 BUCKET_NAME = *"THE BUCKET NAME"*  
 ROOT_FOLDER = *"THE ROOT FOLDER NAME"*  
 
+Create a user with correct S3 permissions in AWS IAM and generate an access and secret key. 
+
+Add the bucket name and root folder name's tothe config file and save.
+
 **Generating credentials.json**:  
 Follow the first part of this tutorial to create credentials file:
 https://www.casuallycoding.com/download-docs-from-google-drive-api/
