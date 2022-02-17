@@ -32,7 +32,7 @@ In order for the script to run you'll need to create the following unversioned f
 **Creating the config file**:
 1. Create a new file named 'config.py' in the root directory.
 1. Open the file and add the following details:  
-ACCESSKEY =* "AWS ACCESS KEY"*  
+ACCESSKEY = *"AWS ACCESS KEY"*  
 SECRETKEY = *"AWS SECRET KEY"*  
 BUCKET_NAME = *"THE BUCKET NAME"*  
 ROOT_FOLDER = *"THE ROOT FOLDER NAME"*  
