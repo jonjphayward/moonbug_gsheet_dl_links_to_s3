@@ -8,3 +8,19 @@ This script detects google drive download links in a google sheet, downloads the
 1. Print a count of assets successfully ingested and a report of files which were unable to be ingested (filename and URL)
 
 ### Installation
+In order for the script to run you'll need to create the following unversioned files:
+- config.py
+- credentials.json
+
+Creating the config file:
+1. Create a new file named 'config.py' in the root directory.
+1. Open the file and add the following details:
+    ACCESSKEY = "AWS ACCESS KEY"
+    SECRETKEY = "AWS SECRET KEY"
+    
+    BUCKET_NAME = "THE BUCKET NAME"
+    ROOT_FOLDER = "THE ROOT FOLDER NAME"
+
+Generating credentials.json:
+Follow the first part of this tutorial to create credentials file:
+https://www.casuallycoding.com/download-docs-from-google-drive-api/
