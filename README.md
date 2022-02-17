@@ -17,10 +17,10 @@ In order for the script to run you'll need to create the following unversioned f
 1. Open the file and add the following details:
 
 > ACCESSKEY = "AWS ACCESS KEY"
-SECRETKEY = "AWS SECRET KEY"
+> SECRETKEY = "AWS SECRET KEY"
 
 > BUCKET_NAME = "THE BUCKET NAME"
-ROOT_FOLDER = "THE ROOT FOLDER NAME"
+> ROOT_FOLDER = "THE ROOT FOLDER NAME"
 
 **Generating credentials.json**:
 Follow the first part of this tutorial to create credentials file:
