@@ -18,7 +18,6 @@ In order for the script to run you'll need to create the following unversioned f
 
 > ACCESSKEY = "AWS ACCESS KEY"
 > SECRETKEY = "AWS SECRET KEY"
-
 > BUCKET_NAME = "THE BUCKET NAME"
 > ROOT_FOLDER = "THE ROOT FOLDER NAME"
 
