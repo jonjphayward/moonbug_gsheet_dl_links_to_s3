@@ -28,7 +28,7 @@ Add the bucket name and root folder name's tothe config file and save.
 Follow the first part of this tutorial to create credentials file:
 https://www.casuallycoding.com/download-docs-from-google-drive-api/
 
-**Steps to run**
+### Steps to run
 1. Download codebase 
 1. Run Setup.bat to install python libraries
 1. Run START.bat to run the python script
