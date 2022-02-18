@@ -1,4 +1,4 @@
-## ### Moonbug Google sheet download links to S3
+## Moonbug Google sheet download links to S3
 This script detects google drive download links in a google sheet, downloads them and uploads them to a bucket in S3 inside a folder named after the spreadsheet.
 1. User submits a google sheet URL
 1. Search each cell for google download URLs
