@@ -27,3 +27,10 @@ Add the bucket name and root folder name's tothe config file and save.
 **Generating credentials.json**:  
 Follow the first part of this tutorial to create credentials file:
 https://www.casuallycoding.com/download-docs-from-google-drive-api/
+
+**Steps to run**
+1. Download codebase 
+1. Run Setup.bat to install python libraries
+1. Run START.bat to run the python script
+1. Paste your google sheet URL into the console window
+1. Once it has completed you will be presented with a report of successes and any failures.
