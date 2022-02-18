@@ -30,7 +30,7 @@ https://www.casuallycoding.com/download-docs-from-google-drive-api/
 
 ### Steps to run
 1. Download codebase 
-1. Run Setup.bat to install python libraries
+1. Run setup.bat to install python libraries
 1. Run START.bat to run the python script
 1. Paste your google sheet URL into the console window
 1. Once it has completed you will be presented with a report of successes and any failures.
