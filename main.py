@@ -252,8 +252,9 @@ for row in values:
                 if 'original_assetname' in locals():
                     failed_dl_dict[original_assetname] = cell
                 else:
-                    cell_index = row.index(cell)
-                    failed_dl_dict["ROW:{}, CELL:{}".format(line_count, cell_index)] = cell
+                    cell_index = row.index(cell) + 1
+                    alpha_cell_index = chr(ord('@')+cell_index)
+                    failed_dl_dict["ROW:{}, CELL:{}".format(line_count, alpha_cell_index)] = cell
         
         elif "file" in cell:
             total_expected_files += 1
@@ -289,8 +290,9 @@ for row in values:
                 if 'original_assetname' in locals():
                     failed_dl_dict[original_assetname] = cell
                 else:
-                    cell_index = row.index(cell)
-                    failed_dl_dict["ROW:{}, CELL:{}".format(line_count, cell_index)] = cell
+                    cell_index = row.index(cell) + 1
+                    alpha_cell_index = chr(ord('@')+cell_index)
+                    failed_dl_dict["ROW:{}, CELL:{}".format(line_count, alpha_cell_index)] = cell
 
         
     
