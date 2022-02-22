@@ -18,7 +18,7 @@ In order for the script to run you'll need to create the following unversioned f
 ACCESSKEY = *"AWS ACCESS KEY"*  
 SECRETKEY = *"AWS SECRET KEY"*  
 BUCKET_NAME = *"THE BUCKET NAME"*  
-ROOT_FOLDER = *"THE ROOT FOLDER NAME"*  
+ROOT_FOLDER = *"THE ROOT FOLDER NAME/"*  #if you have a root subfolder inside the bucket then add the folder name here with a trailing / otherwise leave as empty string eg ""
 
 Create a user with correct S3 permissions in AWS IAM and generate an access and secret key. 
 
