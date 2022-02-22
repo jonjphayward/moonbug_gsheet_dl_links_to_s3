@@ -141,12 +141,6 @@ creds = create_or_validate_creds()
 # Run it
 total_expected_files = 0
 
-#if len(os.listdir(source_csv_folder)) != 1:
-#    logging.error("Please make sure there is only 1 source csv file in the source csv folder")
-#    exit()
-
-#----
-
 SHEET_ID = get_file_id(sheet_url)
 
 service = build('sheets', 'v4', credentials=creds)
