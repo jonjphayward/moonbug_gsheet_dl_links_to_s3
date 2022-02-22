@@ -1,4 +1,4 @@
-### Moonbug Google sheet download links to S3
+## Moonbug Google sheet download links to S3
 This script detects google drive download links in a google sheet, downloads them and uploads them to a bucket in S3 inside a folder named after the spreadsheet.
 1. User submits a google sheet URL
 1. Search each cell for google download URLs
@@ -27,3 +27,10 @@ Add the bucket name and root folder name's tothe config file and save.
 **Generating credentials.json**:  
 Follow the first part of this tutorial to create credentials file:
 https://www.casuallycoding.com/download-docs-from-google-drive-api/
+
+### Steps to run
+1. Download codebase 
+1. Run setup.bat to install python libraries
+1. Run START.bat to run the python script
+1. Paste your google sheet URL into the console window
+1. Once it has completed you will be presented with a report of successes and any failures.
