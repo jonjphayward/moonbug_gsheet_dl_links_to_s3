@@ -40,7 +40,7 @@ def remove_illegal_chars(filename):
 
 def upload_to_s3(filename, folder):
     logging.info("Uploading to S3")
-    result = s3.Bucket(BUCKET_NAME).upload_file(os.path.join(download_location, filename), '{}/{}/{}'.format(ROOT_FOLDER, folder, filename))
+    result = s3.Bucket(BUCKET_NAME).upload_file(os.path.join(download_location, filename), '{}{}/{}'.format(ROOT_FOLDER, folder, filename))
     #return result
 
 
