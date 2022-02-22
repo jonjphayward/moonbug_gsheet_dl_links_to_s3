@@ -102,7 +102,7 @@ logging.basicConfig(filename = os.path.join(logs, timestamp + ".txt"),
 logging.getLogger().addHandler(logging.StreamHandler())
 
 for name in ['boto', 'urllib3', 's3transfer', 'boto3', 'botocore', 'nose', 'boto3']:
-    logging.getLogger(name).setLevel(logging.CRITICAL)
+    logging.getLogger(name).setLevel(logging.ERROR)
 
 logging.info(download_location)
 
@@ -133,7 +133,7 @@ s3 = session.resource('s3')
 
 
 # Set Google Drive API Tokens / Scopes
-SCOPES = ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/spreadsheets.readonly'] 
+SCOPES = ['https://www.googleapis.com/auth/drive.readonly', 'https://www.googleapis.com/auth/spreadsheets.readonly', 'https://www.googleapis.com/auth/documents.readonly', 'https://www.googleapis.com/auth/documents'] 
 
 creds = create_or_validate_creds()
 
@@ -155,7 +155,7 @@ spreadsheet = service.spreadsheets().get(spreadsheetId=SHEET_ID, includeGridData
 
 for sheet in spreadsheet['sheets']:
     sheet_title = sheet['properties']['title']
-    print(sheet_title)
+    logging.info(sheet_title)
 
 
 sheet = service.spreadsheets()
@@ -177,7 +177,6 @@ for row in values:
 
     title = row[0]
     for cell in row:
-
         logging.info("-" * 50)
         logging.info("Row: {}".format(line_count))
         logging.info("Cell: {}".format(cell))
@@ -202,28 +201,34 @@ for row in values:
         if "document" in cell:
             total_expected_files += 1
             
-            DOCUMENT_ID = str(file_id)
-
             try:
                 downloadService = build('drive', 'v3', credentials=creds)
-                results = downloadService.files().get(fileId=DOCUMENT_ID, fields="id, name,mimeType,createdTime", supportsAllDrives=True).execute()
+                results = downloadService.files().get(fileId=file_id, fields="id, name,mimeType,createdTime", supportsAllDrives=True).execute()
+                original_assetname = results['name']
+                logging.info("Filename: {}".format(original_assetname))
+                assetname = remove_illegal_chars(original_assetname)
+                logging.info("Formatted filename: {}".format(assetname))
                 docMimeType = results['mimeType']
 
                 mimeTypeMatchup = {
                 "application/vnd.google-apps.document": {
-                    "exportType":"application/vnd.openxmlformats-officedocument.wordprocessingml.document","docExt":"docx"
+                    "exportType":"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    "docExt":"docx"
+                    },
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
+                    "exportType":"application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    "docExt":"docx"
                     }
                 }
 
                 exportMimeType =mimeTypeMatchup[docMimeType]['exportType']
                 docExt =mimeTypeMatchup[docMimeType]['docExt']
-                original_assetname = results['name']
-                logging.info("Filename: {}".format(original_assetname))
-                
-                assetname = remove_illegal_chars(original_assetname)
-                logging.info("Formatted filename: {}".format(assetname))
 
-                request = downloadService.files().export_media(fileId=DOCUMENT_ID, mimeType=exportMimeType) # Export formats : https://developers.google.com/drive/api/v3/ref-export-formats
+                if docMimeType == "application/vnd.google-apps.document":
+                    request = downloadService.files().export_media(fileId=file_id, mimeType=exportMimeType) # Export formats : https://developers.google.com/drive/api/v3/ref-export-formats
+                else:
+                    request = downloadService.files().get_media(fileId=file_id)
+
                 fh = io.FileIO(os.path.join(download_location, assetname+"."+docExt), mode='w')
 
                 downloader = MediaIoBaseDownload(fh, request)
@@ -244,7 +249,11 @@ for row in values:
 
             except Exception as e:
                 logging.error(e)
-                failed_dl_dict[original_assetname] = cell
+                if 'original_assetname' in locals():
+                    failed_dl_dict[original_assetname] = cell
+                else:
+                    cell_index = row.index(cell)
+                    failed_dl_dict["ROW:{}, CELL:{}".format(line_count, cell_index)] = cell
         
         elif "file" in cell:
             total_expected_files += 1
@@ -254,8 +263,9 @@ for row in values:
                 results = downloadService.files().get(fileId=file_id, fields="id, name", supportsAllDrives=True).execute()
                 
                 original_assetname = results['name']
-
+                logging.info("Filename: {}".format(original_assetname))
                 assetname = remove_illegal_chars(original_assetname)
+                logging.info("Formatted filename: {}".format(assetname))
                 
                 request = downloadService.files().get_media(fileId=file_id)
                 fh = io.FileIO(os.path.join(download_location, assetname), 'wb') 
@@ -276,7 +286,11 @@ for row in values:
 
             except Exception as e:
                 logging.error(e)
-                failed_dl_dict[original_assetname] = cell
+                if 'original_assetname' in locals():
+                    failed_dl_dict[original_assetname] = cell
+                else:
+                    cell_index = row.index(cell)
+                    failed_dl_dict["ROW:{}, CELL:{}".format(line_count, cell_index)] = cell
 
         
     
@@ -292,7 +306,10 @@ if len(failed_dl_dict) > 0:
     logging.warning("{} assets failed to be ingested!".format(str(len(failed_dl_dict))))
     failed_count = 1
     for key, value in failed_dl_dict.items():
-        logging.warning("{}. Filename: {}".format(str(failed_count), str(key)))
+        if str(key).startswith("ROW:"):
+            logging.warning("{}. Filename unknown: {}".format(str(failed_count), str(key)))
+        else:
+            logging.warning("{}. Filename: {}".format(str(failed_count), str(key)))
         logging.warning("{}. URL: {}".format(str(failed_count), str(value)))
 
         failed_count += 1
