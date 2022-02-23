@@ -169,7 +169,6 @@ failed_dl_dict = {}
 for row in values:
     creds = create_or_validate_creds()
 
-    title = row[0]
     for cell in row:
         logging.info("-" * 50)
         logging.info("Row: {}".format(line_count))
